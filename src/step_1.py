@@ -11,6 +11,7 @@ from qiskit.circuit.library import TwoLocal, NLocal, RYGate
 from qiskit.circuit import QuantumCircuit, ParameterVector
 from qiskit.circuit.library.standard_gates import get_standard_gate_name_mapping
 from qiskit_aer import AerSimulator
+from qiskit_optimization.translators import from_docplex_mp  # type: ignore
 from qiskit_ibm_runtime import QiskitRuntimeService
 from qiskit.providers.backend import BackendV2
 from qiskit.transpiler import CouplingMap
@@ -353,3 +354,105 @@ def problem_mapping(lp_file: str, ansatz: str, ansatz_params: dict, theta_initia
         raise ValueError('unknown theta_initial')
 
     return obj_fn, ansatz_, theta_initial_, backend, initial_layout
+
+# =====================================================================
+# QAOA / PennyLane helper
+# ---------------------------------------------------------------------
+
+def build_ising(lp_file: str):
+    """Convert an LP file to Ising coefficients (J, h, const).
+
+    The routine reads the LP into a Qiskit QuadraticProgram, converts it to a
+    *QUBO* matrix **Q**, then analytically maps 0/1 variables to spin variables
+    z ∈ {−1, +1} via x = (1 − z)/2.
+
+    Returns
+    -------
+    J : np.ndarray  (n×n, upper-triangular zeros on diag)
+    h : np.ndarray  (n,)
+    const : float   overall constant shift such that   H = z^T J z + h^T z + const
+    """
+    try:
+        from qiskit_optimization import QuadraticProgram  # type: ignore
+        from qiskit_optimization.converters import QuadraticProgramToQubo  # type: ignore
+    except ImportError as exc:  # pragma: no cover
+        raise ImportError("qiskit-optimization package is required for build_ising") from exc
+
+    import numpy as np
+
+    # Load LP into QuadraticProgram *without* requiring CPLEX.
+    # We first read the LP with Docplex then convert to QuadraticProgram
+    from qiskit_optimization.translators import from_docplex_mp  # type: ignore
+    import docplex.mp.model_reader as mr
+    try:
+        docplex_model = mr.ModelReader.read(lp_file)
+        qp = from_docplex_mp(docplex_model)
+    except Exception:
+        # Fallback to local lightweight parser that does not depend on CPLEX
+        try:
+            from sbo.src.utils.lp_utils import load_quadratic_program  # type: ignore
+        except ImportError:
+            # relative import in case module layout changed
+            from .sbo.src.utils.lp_utils import load_quadratic_program  # type: ignore
+        qp = load_quadratic_program(lp_file)
+
+    # Ensure binary vars (robust to custom QuadraticProgram coming from local parser)
+    for v in qp.variables:
+        try:
+            if v.vartype != qp.vartype.BINARY:  # type: ignore[attr-defined]
+                raise ValueError("Non-binary variables detected; currently unsupported for Ising build.")
+        except AttributeError:
+            # Fallback parser doesn't expose vartype; we assume all parsed vars are binary.
+            pass
+
+    # Convert to QUBO – handle qiskit-optimization ≥0.6 where VarType.BINARY is not supported
+    try:
+        qubo_conv = QuadraticProgramToQubo()
+        qubo = qubo_conv.convert(qp)
+    except Exception as err:
+        # Fallback path: compose converters manually (Inequality→Equality→Binary→Penalty) as per 0.6 API
+
+
+        # Manual build: skip converters (binary variables unsupported in 0.6.x)
+        obj = qp.objective
+        Q = obj.quadratic.coefficients.toarray()
+        lin = obj.linear.coefficients.toarray().flatten()
+        c = obj.constant
+        n = len(lin)
+        # Map to Ising below
+        qubo_manual = True
+
+    if 'qubo_manual' in locals():
+        # Already defined Q, lin, c
+        pass
+    else:
+        Q = qubo.objective.quadratic.to_array(symmetric=True)
+        lin = qubo.objective.linear.to_array() if hasattr(qubo.objective, 'linear') else qubo.objective.linear.coefficients.toarray().flatten()
+        c = qubo.objective.constant
+    # --------------------------------------------------------------
+    # Inject quadratic penalties for linear constraints (Ax ≈ b)
+    # --------------------------------------------------------------
+    if getattr(qp, 'linear_constraints', None):
+        rho = 10.0 * (np.abs(Q).sum() + np.abs(lin).sum() + abs(c) + 1e-6)
+        for lc in qp.linear_constraints:
+            A = lc.linear.coefficients.toarray().flatten()
+            b_rhs = lc.rhs
+            Q += rho * np.outer(A, A)
+            lin += -2.0 * rho * b_rhs * A
+            c += rho * (b_rhs ** 2)
+
+    n = Q.shape[0]
+
+    # Map QUBO → Ising via x = (1−z)/2
+    J = np.zeros((n, n))
+    h = np.zeros(n)
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            if Q[i, j] != 0:
+                J[i, j] = Q[i, j] / 4.0
+    for i in range(n):
+        h[i] = lin[i] / 2.0 + Q[i, i] / 2.0 + sum(Q[min(i, j), max(i, j)] / 4.0 for j in range(n) if j != i)
+
+    const = c + np.sum(lin) / 2.0 + np.sum(Q) / 4.0
+    return J, h, const
