@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
-"""
-🚀 WISER Hardware Runner - مُحسّن للأجهزة الحقيقية
 
-يستخدم main_runner.py المُصلح مع إعدادات محسّنة لتوفير الكريدت
-"""
 
 import os
 import sys
