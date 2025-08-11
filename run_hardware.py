@@ -37,7 +37,6 @@ def main():
         print("Or run: python setup_hardware.py --token YOUR_TOKEN")
         return False
     
-    # إنشاء المحسن
     results_dir = f"hardware_results_{datetime.now().strftime('%Y%m%d_%H%M')}"
     optimizer = WISERPortfolioOptimizer(
         data_path="../data/1/",
@@ -66,7 +65,6 @@ def main():
             print("\n✅ Hardware optimization completed successfully!")
             print(f"📁 All results saved to: {results_dir}")
             
-            # عرض ملخص النتائج
             if optimizer.comparison_data:
                 print("\n📊 Results Summary:")
                 data = optimizer.comparison_data
