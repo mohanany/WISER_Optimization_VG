@@ -13,24 +13,23 @@ def main():
     print("=" * 60)
     print(f"📅 Session: {datetime.now()}")
     
-    # إعدادات محسّنة للأجهزة الحقيقية
+   
     config = {
-        'assets': 6,              # تقليل حجم المشكلة
-        'max_assets': 4,          # تقليل الحد الأقصى
+        'assets': 6,           
+        'max_assets': 4,          
         'target_return': 0.01,
         'risk_aversion': 1.0,
-        'vqe_iterations': 30,     # تقليل التكرارات
-        'qaoa_reps': 1,          # تبسيط العمق
-        'shots': 512,            # تقليل عدد القياسات
-        'use_noise': False,      # تبسيط للاختبار
-        'backend_type': 'ibm_hardware'  # استخدام الأجهزة الحقيقية
+        'vqe_iterations': 30,    
+        'qaoa_reps': 1,         
+        'shots': 512,            
+        'use_noise': False,      
+        'backend_type': 'ibm_hardware'  
     }
     
     print("\n⚙️ Configuration:")
     for key, value in config.items():
         print(f"   {key}: {value}")
-    
-    # التحقق من وجود IBM credentials
+   
     if not os.getenv('IBM_API_TOKEN'):
         print("\n⚠️ IBM_API_TOKEN not found!")
         print("Set your IBM Quantum token:")
@@ -49,7 +48,7 @@ def main():
     print("\n🎯 Starting optimization...")
     
     try:
-        # تشغيل مع الإعدادات المحسّنة
+      
         success = optimizer.run_full_pipeline(
             num_assets=config['assets'],
             max_assets=config['max_assets'],
@@ -60,7 +59,7 @@ def main():
             shots=config['shots'],
             vqe_maxiter=config['vqe_iterations'],
             qaoa_reps=config['qaoa_reps'],
-            methods=['classical', 'vqe', 'qaoa']  # جميع الطرق
+            methods=['classical', 'vqe', 'qaoa']
         )
         
         if success:
