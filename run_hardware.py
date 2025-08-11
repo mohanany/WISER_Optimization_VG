@@ -9,7 +9,7 @@ warnings.filterwarnings('ignore')
 from main_runner import WISERPortfolioOptimizer
 
 def main():
-    print("🚀 WISER Portfolio Optimization - Hardware Runner")
+    print("🚀 Hardware Runner")
     print("=" * 60)
     print(f"📅 Session: {datetime.now()}")
     
