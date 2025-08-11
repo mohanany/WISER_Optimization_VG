@@ -1,15 +1,4 @@
-#!/usr/bin/env python3
-"""
-🚀 WISER Hardware Setup Script
-إعداد سريع لتشغيل الخوارزميات الكمية على الأجهزة الحقيقية
 
-الاستخدام:
-    python setup_hardware.py --token YOUR_IBM_TOKEN
-    
-أو تعديل متغيرات البيئة:
-    export IBM_API_TOKEN="your_token_here"
-    python setup_hardware.py
-"""
 
 import os
 import sys
