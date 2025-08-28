@@ -43,7 +43,7 @@ QRL enhances dynamic allocation by optimizing state-action pairs (e.g., state\=�
 
 ##### 3.2 Quantum Algorithms for Portfolio Optimization \[4\]
 
-* **Relevance**: Introduces a quantum algorithm with O(nrζκ/δ2log⁡(1/ϵ)) O(n \\sqrt{r} \\zeta \\kappa / \\delta^2 \\log(1/\\epsilon)) O(nrζκ/δ2log(1/ϵ)) complexity, offering O(n) O(n) O(n) speedup over classical O(rnωlog⁡(1/ϵ)) O(\\sqrt{r} n^\\omega \\log(1/\\epsilon)) O(rnωlog(1/ϵ)).
+* **Relevance**: Introduces a quantum algorithm with $O\!\left(\frac{n \sqrt{r}\,\zeta \kappa}{\delta^2} \log\!\left(\tfrac{1}{\epsilon}\right)\right)$ complexity, offering O(n) speedup over classical $O\!\left(\sqrt{r}\, n^{\omega} \log\!\left(\tfrac{1}{\epsilon}\right)\right)$
 * **Application**: Apply warm-start with δ\=0.01 \\delta = 0.01 δ\=0.01, ϵ\=0.05 \\epsilon = 0.05 ϵ\=0.05, and γ\=π/4 \\gamma = \\pi/4 γ\=π/4, β\=π/2 \\beta = \\pi/2 β\=π/2.
 * **Equation**: Cost\=−⟨ψ(θ)∣H∣ψ(θ)⟩ \\text{Cost} = -\\langle \\psi(\\theta) | H | \\psi(\\theta) \\rangle Cost\=−⟨ψ(θ)∣H∣ψ(θ)⟩.
 
