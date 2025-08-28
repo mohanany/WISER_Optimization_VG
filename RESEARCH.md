@@ -51,7 +51,7 @@ QRL enhances dynamic allocation by optimizing state-action pairs (e.g., state\=�
 
 * **Relevance**: Defines optimal VQE parameters, showing 95% convergence on real devices with M\=5−10 M = 5-10 M\=5−10.
 * **Application**: Use PauliTwo ansatz, COBYLA, and p\=3−5 p = 3-5 p\=3−5.
-* **Equation**: H\=∑ihiZi+∑i<jJijZiZj+M(∑wi−1)2 H = \\sum\_i h\_i Z\_i + \\sum\_{i<j} J\_{ij} Z\_i Z\_j + M (\\sum w\_i - 1)^2 H\=∑ihiZi+∑i<jJijZiZj+M(∑wi−1)2.
+* **Equation**: $H = \sum_i h_i Z_i \;+\; \sum_{i<j} J_{ij} Z_i Z_j \;+\; M \left(\sum_i w_i - 1\right)^2$.
 
 ##### 3.4 Portfolio Optimization with VQE (Part 1 & 2) \[6\]
 
