@@ -16,7 +16,7 @@ The proposed framework combines a classical optimizer (GUROBI) for an initial so
 
 ##### 2.2 Ising Model Formulation
 
-The PO problem is transformed into a Quadratic Unconstrained Binary Optimization (QUBO) problem, then converted to an Ising Hamiltonian $H\=∑_ih_iZ_i+∑i<jJijZiZj$ H = \\sum\_i h\_i Z\_i + \\sum\_{i<j} J\_{ij} Z\_i Z\_j H\=∑ihiZi+∑i<jJijZiZj, where:
+The PO problem is transformed into a Quadratic Unconstrained Binary Optimization (QUBO) problem, then converted to an Ising Hamiltonian $H\=∑_ih_iZ_i+∑_{i<j}J_{i,j}Z_iZ_j$ $H = \\sum\_i h\_i Z\_i + \\sum\_{i<j} J\_{ij} Z\_i Z\_j$ $H\=∑_ih_iZ_i+∑_{i<j}J_{ij}Z_iZ_j$, where:
 
 * hi\=ci+12∑jQij h\_i = c\_i + \\frac{1}{2} \\sum\_j Q\_{ij} hi\=ci+21∑jQij (local field terms),
 * Jij\=14Qij J\_{ij} = \\frac{1}{4} Q\_{ij} Jij\=41Qij (coupling terms),
