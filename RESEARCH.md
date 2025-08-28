@@ -57,13 +57,13 @@ QRL enhances dynamic allocation by optimizing state-action pairs (e.g., state\=�
 
 * **Relevance**: Provides practical VQE implementation, recommending RY ansatz and M\=8−10 M = 8-10 M\=8−10 for 97% accuracy.
 * **Application**: Implement RY with p\=4 p = 4 p\=4, COBYLA (lr\=0.1 \\text{lr} = 0.1 lr\=0.1), and shots\=2048 \\text{shots} = 2048 shots\=2048.
-* **Equation**: Objective\=wTQw+cTw+M∑(constraints) \\text{Objective} = w^T Q w + c^T w + M \\sum (\\text{constraints}) Objective\=wTQw+cTw+M∑(constraints).
+* **Equation**: $\text{Objective} = w^T Q w + c^T w + M \sum (\text{constraints})$.
 
 ##### 3.5 Quantum Reinforcement Learning for Portfolio Optimization \[8\]
 
 * **Relevance**: Demonstrates 15-30% return improvement with QRL on dynamic portfolios.
 * **Application**: Integrate QRL with K-means for state-action optimization.
-* **Equation**: Q(s,a)\=Q(s,a)+α\[r+γmax⁡Q(s′,a′)−Q(s,a)\] Q(s, a) = Q(s, a) + \\alpha \[r + \\gamma \\max Q(s', a') - Q(s, a)\] Q(s,a)\=Q(s,a)+α\[r+γmaxQ(s′,a′)−Q(s,a)\].
+* **Equation**: $Q(s,a) = Q(s,a) + \alpha \Big[r + \gamma \max_{a'} Q(s',a') - Q(s,a)\Big]$.
 
 #### 4\. Proposed Implementation
 
