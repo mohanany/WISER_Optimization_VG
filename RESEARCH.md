@@ -19,7 +19,7 @@ The proposed framework combines a classical optimizer (GUROBI) for an initial so
 The PO problem is transformed into a Quadratic Unconstrained Binary Optimization (QUBO) problem, then converted to an Ising Hamiltonian $H\=∑_ih_iZ_i+∑_{i<j}J_{i,j}Z_iZ_j$ 
 <!-- $H = \\sum\_i h\_i Z\_i + \\sum\_{i<j} J\_{ij} Z\_i Z\_j$ $H\=∑_ih_iZ_i+∑_{i<j}J_{ij}Z_iZ_j$ -->, where:
 
-* <!-- h_i\=c_i+1/2∑_jQ_{i,j}--> $h\_i = c\_i + \\frac{1}{2} \\sum\_j Q\_{ij}$ <!-- hi\=ci+21∑jQij --> (local field terms),
+* <!-- h_i\=c_i+1/2∑_jQ_{i,j}--> $h_i = c_i + \frac{1}{2} \\sum\_j Q\_{ij}$ <!-- hi\=ci+21∑jQij --> (local field terms),
 * Jij\=14Qij J\_{ij} = \\frac{1}{4} Q\_{ij} Jij\=41Qij (coupling terms),
 * ci c\_i ci and Qij Q\_{ij} Qij are linear and quadratic coefficients from the QUBO, respectively. A penalty term M∑(constraints) M \\sum (\\text{constraints}) M∑(constraints) is added, with M\=5−10 M = 5-10 M\=5−10 recommended by \[5\] for 95% accuracy.
 
