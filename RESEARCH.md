@@ -39,7 +39,7 @@ QRL enhances dynamic allocation by optimizing state-action pairs (e.g., state\=�
 
 * **Relevance**: Proposes a Benders Decomposition approach, splitting MILP into a quantum Master Problem and classical Subproblem, achieving 2-3x speedup.
 * **Application**: Use GUROBI for 60 seconds, then QAOA with p\=3−5 p = 3-5 p\=3−5, shots\=1024−8196 \\text{shots} = 1024-8196 shots\=1024−8196, and M\=5 M = 5 M\=5.
-* **Equation**: HIsing\=∑ihiZi+∑i<jJijZiZj+M∑(constraints) H\_{\\text{Ising}} = \\sum\_i h\_i Z\_i + \\sum\_{i<j} J\_{ij} Z\_i Z\_j + M \\sum (\\text{constraints}) HIsing\=∑ihiZi+∑i<jJijZiZj+M∑(constraints).
+* **Equation**: <!-- H_Ising\=∑ihiZi+∑i<jJijZiZj+M∑(constraints) H\_{\\text{Ising}} = \\sum\_i h\_i Z\_i + \\sum\_{i<j} J\_{ij} Z\_i Z\_j + M \\sum (\\text{constraints}) --> $H_{Ising} =∑_{i} h_{i} Z_{i}+∑_{i<j} J_{ij} Z_{i} Z_{j}+ M\sum (constraints).
 
 ##### 3.2 Quantum Algorithms for Portfolio Optimization \[4\]
 
