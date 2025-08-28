@@ -21,7 +21,7 @@ The PO problem is transformed into a Quadratic Unconstrained Binary Optimization
 
 * <!-- h_i\=c_i+1/2∑_jQ_{i,j}--> $h_i = c_i + \frac{1}{2} \sum\_j Q\_{i,j}$ <!-- hi\=ci+21∑jQij --> (local field terms),
 * $J_{i,j} = \frac{1}{4} Q_{i,j}$ (coupling terms),
-* $ c_i$ and $Q_{i,j}$ are linear and quadratic coefficients from the QUBO, respectively. A penalty term $M \sum (constraints) is added, with $M = 5-10$ recommended by \[5\] for 95% accuracy.
+* $c_{i}$ and $Q_{i,j}$ are linear and quadratic coefficients from the QUBO, respectively. A penalty term $M \sum (constraints) is added, with $M = 5-10$ recommended by \[5\] for 95% accuracy.
 
 ##### 2.3 Hyperparameter Optimization
 
