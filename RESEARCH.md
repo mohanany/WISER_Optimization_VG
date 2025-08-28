@@ -19,13 +19,13 @@ The proposed framework combines a classical optimizer (GUROBI) for an initial so
 The PO problem is transformed into a Quadratic Unconstrained Binary Optimization (QUBO) problem, then converted to an Ising Hamiltonian $H\=∑_ih_iZ_i+∑_{i<j}J_{i,j}Z_iZ_j$ 
 <!-- $H = \\sum\_i h\_i Z\_i + \\sum\_{i<j} J\_{ij} Z\_i Z\_j$ $H\=∑_ih_iZ_i+∑_{i<j}J_{ij}Z_iZ_j$ -->, where:
 
-* <!-- h_i\=c_i+1/2∑_jQ_{i,j}--> $h_i = c_i + \frac{1}{2} \\sum\_j Q\_{ij}$ <!-- hi\=ci+21∑jQij --> (local field terms),
-* Jij\=14Qij J\_{ij} = \\frac{1}{4} Q\_{ij} Jij\=41Qij (coupling terms),
-* ci c\_i ci and Qij Q\_{ij} Qij are linear and quadratic coefficients from the QUBO, respectively. A penalty term M∑(constraints) M \\sum (\\text{constraints}) M∑(constraints) is added, with M\=5−10 M = 5-10 M\=5−10 recommended by \[5\] for 95% accuracy.
+* <!-- h_i\=c_i+1/2∑_jQ_{i,j}--> $h_i = c_i + \frac{1}{2} \sum\_j Q\_{i,j}$ <!-- hi\=ci+21∑jQij --> (local field terms),
+* $J_{i,j} = 14Q_{ij} J_{i,j} = \frac{1}{4} Q_{i,j} J_{i,j} =41Q_{i,j} (coupling terms),
+* $ c_i$ and $Q_{i,j} are linear and quadratic coefficients from the QUBO, respectively. A penalty term $M \sum (\\text{constraints}) is added, with $M = 5-10$ recommended by \[5\] for 95% accuracy.
 
 ##### 2.3 Hyperparameter Optimization
 
-* **Ansatz**: RY rotation (preferred for simplicity) or PauliTwo (for convergence) with p\=3−4 p = 3-4 p\=3−4 layers \[6\].
+* **Ansatz**: RY rotation (preferred for simplicity) or PauliTwo (for convergence) with $p=3−4$ layers \[6\].
 * **Optimizer**: COBYLA or Adam with learning rate lr\=0.05−0.1 \\text{lr} = 0.05-0.1 lr\=0.05−0.1 and max iterations = 100-200 \[6\].
 * **Shots**: 1024-8192, adjusted for NISQ noise mitigation \[5\].
 
